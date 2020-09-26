@@ -1,0 +1,17 @@
+DEFAULT="\[\033[0m\]"
+LIGHT_GREEN="\[\033[1;32m\]"
+BLACK="\[\033[1;30m\]"
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# set terminal title
+function se {
+    echo -ne "\033]0;"$*"\007"
+}
+
+PS1="[\u@${LIGHT_GREEN}mac${BLACK}:\w]${LIGHT_GREEN}\$(parse_git_branch)
+$DEFAULT\$"
+
+alias l='ls -alF'
+alias h='history'
